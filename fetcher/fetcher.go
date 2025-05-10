@@ -11,21 +11,12 @@ import (
 )
 
 type ExecutiveOrder struct {
-	EOID        string           `json:"eo_id"`
-	Title       string           `json:"title"`
-	President   string           `json:"president"`
-	DateIssued  string           `json:"date_issued"`
-	HTMLURL     string           `json:"html_url"`
-	PDFURL      string           `json:"pdf_url"`
-	Summary     string           `json:"summary"`
-	ImpactNotes ImpactAssessment `json:"impact_notes"`
-	FullText    string           `json:"full_text"`
-}
-
-type ImpactAssessment struct {
-	AverageAmerican  string `json:"average"`
-	RichestAmericans string `json:"richest"`
-	PoorestAmericans string `json:"poorest"`
+	EOID        string `json:"eo_id"`
+	Title       string `json:"title"`
+	President   string `json:"president"`
+	DateIssued  string `json:"date_issued"`
+	HTMLURL     string `json:"html_url"`
+	PDFURL      string `json:"pdf_url"`
 }
 
 func derivePresident(dateStr string) string {
@@ -98,14 +89,11 @@ func GetAllExecutiveOrders(ctx context.Context) ([]ExecutiveOrder, error) {
 				HTMLURL:     item.HTMLURL,
 				PDFURL:      item.PDFURL,
 				President:   derivePresident(item.PublicationDate),
-				Summary:     "",
-				ImpactNotes: ImpactAssessment{},
-				FullText:    "",
 			}
 			allOrders = append(allOrders, eo)
 		}
 		page++
-		if page > 3 {
+		if page > 5 {
 			break
 		}
 	}
